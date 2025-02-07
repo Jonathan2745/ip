@@ -1,43 +1,20 @@
 import java.util.Scanner;
 
-class Task {
-    private final String description;
-    private boolean isDone;
-
-    public Task(String description) {
-        this.description = description;
-        this.isDone = false;
-    }
-
-    public void markAsDone() {
-        isDone = true;
-    }
-
-    public void markAsNotDone() {
-        isDone = false;
-    }
-
-    public String getStatusIcon() {
-        return (isDone ? "[X] " : "[ ] ") + description;
-    }
-}
-
 class Bob {
     private final Scanner scanner = new Scanner(System.in);
-    private final String name = "Bob";
     private final Task[] tasks = new Task[100];
     private int taskCount = 0;
 
     public void start() {
         System.out.println("____________________________________________________________");
-        System.out.println(" Hello! I'm " + name);
+        ASCII_Art.printArt();
+        System.out.println(" Hello! I'm BobChungus ");
         System.out.println(" What can I do for you?");
         System.out.println("____________________________________________________________");
 
-        String input;
-        while (true) {
-            input = scanner.nextLine();
 
+        while (true) {
+            String input = scanner.nextLine();
             if (input.equalsIgnoreCase("bye")) {
                 break;
             } else if (input.equalsIgnoreCase("list")) {
@@ -47,7 +24,7 @@ class Bob {
                     System.out.println(" No tasks added yet.");
                 } else {
                     for (int i = 0; i < taskCount; i++) {
-                        System.out.println((i + 1) + ". " + tasks[i].getStatusIcon());
+                        System.out.println((i + 1) + ". " + tasks[i].toString());
                     }
                 }
                 System.out.println("____________________________________________________________");
@@ -57,7 +34,7 @@ class Bob {
                     tasks[index].markAsDone();
                     System.out.println("____________________________________________________________");
                     System.out.println(" Nice! I've marked this task as done:");
-                    System.out.println("   " + tasks[index].getStatusIcon());
+                    System.out.println("   " + tasks[index].toString());
                     System.out.println("____________________________________________________________");
                 }
             } else if (input.startsWith("unmark ")) {
@@ -66,18 +43,40 @@ class Bob {
                     tasks[index].markAsNotDone();
                     System.out.println("____________________________________________________________");
                     System.out.println(" OK, I've marked this task as not done yet:");
-                    System.out.println("   " + tasks[index].getStatusIcon());
-                    System.out.println("____________________________________________________________");
-                }
-            } else {
-                if (taskCount < 100) {
-                    tasks[taskCount++] = new Task(input);
-                    System.out.println("____________________________________________________________");
-                    System.out.println(" added: " + input);
+                    System.out.println("   " + tasks[index].toString());
                     System.out.println("____________________________________________________________");
                 } else {
-                    System.out.println(" Task list is full!");
+                    System.out.println("Invalid input");
                 }
+            } else if (input.startsWith("todo ")) {
+                String description = input.substring(5);
+                tasks[taskCount++] = new ToDo(description);
+                System.out.println("Now you have " + taskCount + " tasks in the list.");
+                System.out.println("____________________________________________________________");
+            } else if (input.startsWith("deadline ")) {
+                String[] parts = input.substring(9).split(" /by ", 2);
+                if (parts.length == 2) {
+                    tasks[taskCount++] = new Deadline(parts[0], parts[1]);
+                } else {
+                    System.out.println("Invalid deadline description");
+                }
+                System.out.println("Now you have " + taskCount + " tasks in the list.");
+                System.out.println("____________________________________________________________");
+
+            } else if (input.startsWith("event ")) {
+                String[] parts = input.substring(6).split(" /from ", 2);
+                if (parts.length == 2) {
+                    String[] timeParts = parts[1].split(" /to ", 2);
+                    if (timeParts.length == 2) {
+                        tasks[taskCount++] = new Event(parts[0], timeParts[0], timeParts[1]);
+                    }
+                } else {
+                    System.out.println("Invalid input, please input a starting and ending time");
+                }
+                System.out.println("Now you have " + taskCount + "  tasks in the list.");
+                System.out.println("____________________________________________________________");
+            } else {
+                System.out.println(" Invalid command. Please try again.");
             }
         }
 
@@ -87,6 +86,7 @@ class Bob {
 
         scanner.close();
     }
+
 }
 
 public class BobChat {
