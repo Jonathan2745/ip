@@ -17,7 +17,9 @@ class Bob {
             String input = scanner.nextLine();
             if (input.equalsIgnoreCase("bye")) {
                 break;
-            } else if (input.equalsIgnoreCase("list")) {
+            }
+
+            if (input.equalsIgnoreCase("list")) {
                 System.out.println("____________________________________________________________");
                 System.out.println(" Here are the tasks in your list:");
                 if (taskCount == 0) {
@@ -28,7 +30,9 @@ class Bob {
                     }
                 }
                 System.out.println("____________________________________________________________");
-            } else if (input.startsWith("mark ")) {
+            }
+
+            if (input.startsWith("mark ")) {
                 int index = Integer.parseInt(input.substring(5)) - 1;
                 if (index >= 0 && index < taskCount) {
                     tasks[index].markAsDone();

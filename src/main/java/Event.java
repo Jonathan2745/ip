@@ -1,17 +1,17 @@
 class Event extends Task {
-    private final String from;
-    private final String to;
+    private final String eventFrom;
+    private final String eventTo;
 
-    public Event(String description, String from, String to) {
+    public Event(String description, String eventFrom, String eventTo) {
         super(description);
-        this.from = from;
-        this.to = to;
+        this.eventFrom = eventFrom;
+        this.eventTo = eventTo;
         System.out.println("I have added this event: ");
         System.out.println(this);
     }
 
     @Override
     public String toString() {
-        return "[E]" + getStatusIcon() + getDescription() + " (from: " + from + " to: " + to + ")";
+        return "[E]" + getStatusIcon() + getDescription() + " (from: " + eventFrom + " to: " + eventTo + ")";
     }
 }

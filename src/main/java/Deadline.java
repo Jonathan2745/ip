@@ -1,15 +1,15 @@
 
 class Deadline extends Task {
-    private final String by;
-    public Deadline(String description, String by) {
+    private final String deadlineBy;
+    public Deadline(String description, String deadlineBy) {
         super(description);
-        this.by = by;
+        this.deadlineBy = deadlineBy;
         System.out.println("I have added this deadline: ");
         System.out.println(this);
     }
 
     @Override
     public String toString() {
-        return "[D]" + getStatusIcon() + getDescription() + " (by: " + by + ")";
+        return "[D]" + getStatusIcon() + getDescription() + " (by: " + deadlineBy + ")";
     }
 }

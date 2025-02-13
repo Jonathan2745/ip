@@ -27,9 +27,13 @@ public class ASCII_Art {
 ⠀⠀⠉⠑⠒⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 """;
 
+
+
     public static void printArt() {
             System.out.println(art);
     }
+
+
 
 }
 
