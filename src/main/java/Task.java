@@ -7,6 +7,11 @@ public class Task {
         this.isDone = false;
     }
 
+    public static Task fromString(String line) {
+        String[] parts = line.split("\n");
+        return new Task(parts[0]);
+    }
+
     public void markAsDone() {
         isDone = true;
     }

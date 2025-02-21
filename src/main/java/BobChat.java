@@ -1,10 +1,47 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 import Errors.*;
 
+
 class Bob {
     private final Scanner scanner = new Scanner(System.in);
-    private final ArrayList<Task> tasks = new ArrayList<>();
+
+    private final String filepath = "data/userTasks.txt";
+    private static final ArrayList<Task> tasks = new ArrayList<>();
+
+    // Load tasks from file
+    private static void loadFileContents(String filePath) throws FileNotFoundException {
+        File file = new File(filePath);
+        if (!file.exists()) {
+            System.out.println("File does not exist, starting with an empty list.");
+            return;
+        }
+
+        Scanner scanner = new Scanner(file);
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            tasks.add(Task.fromString(line)); // Convert line to Task and add
+        }
+        scanner.close();
+        System.out.println("Tasks loaded successfully.");
+    }
+
+    // Save tasks to file
+    private static void saveFileContents(String filePath) {
+        try (FileWriter fileWriter = new FileWriter(filePath);
+             PrintWriter writer = new PrintWriter(fileWriter)) {
+
+            for (Task task : tasks) {
+                writer.println(task); // Uses Task's toString() method
+            }
+
+            System.out.println("Tasks saved successfully.");
+        } catch (IOException e) {
+            System.err.println("Error saving tasks: " + e.getMessage());
+        }
+    }
+
 
     public void start() throws InputExceptions {
         System.out.println("____________________________________________________________");
@@ -13,6 +50,11 @@ class Bob {
         System.out.println(" What can I do for you?");
         System.out.println("____________________________________________________________");
 
+        try {
+            loadFileContents(filepath); // Call method inside try block
+        } catch (FileNotFoundException e) {
+            System.err.println("Error: File not found. " + e.getMessage());
+        }
 
         while (true) {
             String input = scanner.nextLine().trim();
@@ -26,6 +68,7 @@ class Bob {
                         System.out.println("____________________________________________________________");
                         System.out.println(" Bye. Hope to see you again soon!");
                         System.out.println("____________________________________________________________");
+                        saveFileContents(filepath);
                         scanner.close();
                         return;
 
@@ -45,7 +88,7 @@ class Bob {
                     case "mark":
                         if (arguments.isEmpty()) throw new InputExceptions.MissingArgumentException("mark");
                         int markIndex = Integer.parseInt(arguments) - 1;
-                        if (markIndex < 0 || markIndex > tasks.size()) throw new InputExceptions("mark target must exist");
+                        if (markIndex < 0 || markIndex >= tasks.size()) throw new InputExceptions("mark target must exist");
                         tasks.get(markIndex).markAsDone();
                         System.out.println("____________________________________________________________");
                         System.out.println(" Nice! I've marked this task as done:");
@@ -56,7 +99,7 @@ class Bob {
                     case "unmark":
                         if (arguments.isEmpty()) throw new InputExceptions("unmark failed, no arguments");
                         int unmarkIndex = Integer.parseInt(arguments) - 1;
-                        if (unmarkIndex < 0 || unmarkIndex > tasks.size())
+                        if (unmarkIndex < 0 || unmarkIndex >= tasks.size())
                             throw new InputExceptions.InvalidIndexException();
                         tasks.get(unmarkIndex).markAsNotDone();
                         System.out.println("____________________________________________________________");
@@ -70,7 +113,7 @@ class Bob {
                             throw new InputExceptions.MissingArgumentException("todo");
                         }
                         tasks.add( new ToDo(arguments) );
-                        System.out.println("Now you have " + (tasks.size() + 1) + " tasks in the list.");
+                        System.out.println("Now you have " + (tasks.size()) + " tasks in the list.");
                         System.out.println("____________________________________________________________");
                         break;
 
@@ -78,7 +121,7 @@ class Bob {
                         String[] parts = arguments.split(" /by ", 2);
                         if (parts.length < 2) throw new InputExceptions.MissingArgumentException("deadline");
                         tasks.add( new Deadline(parts[0], parts[1]));
-                        System.out.println("Now you have " + (tasks.size() + 1) + " tasks in the list.");
+                        System.out.println("Now you have " + (tasks.size()) + " tasks in the list.");
                         System.out.println("____________________________________________________________");
                         break;
 
@@ -88,7 +131,7 @@ class Bob {
                         String[] timeParts = eventParts[1].split(" /to ", 2);
                         if (timeParts.length < 2) throw new InputExceptions.MissingArgumentException("event timing");
                         tasks.add( new Event(eventParts[0], timeParts[0], timeParts[1]));
-                        System.out.println("Now you have " + (tasks.size() + 1) + " tasks in the list.");
+                        System.out.println("Now you have " + (tasks.size()) + " tasks in the list.");
                         System.out.println("____________________________________________________________");
                         break;
 
@@ -97,14 +140,14 @@ class Bob {
                             throw new InputExceptions.MissingArgumentException("todo");
                         }
                         int deleteIndex = Integer.parseInt(arguments) - 1;
-                        if (deleteIndex < 0 || deleteIndex > tasks.size()) {
+                        if (deleteIndex < 0 || deleteIndex >= tasks.size()) {
                             throw new InputExceptions.InvalidIndexException();
                         }
                         Task removedTask = tasks.remove(deleteIndex);
                         System.out.println("____________________________________________________________");
                         System.out.println(" Noted. I've removed this task:");
                         System.out.println("   " + removedTask);
-                        System.out.println("Now you have " + tasks.size() + 1 + " tasks in the list.");
+                        System.out.println("Now you have " + tasks.size()  + " tasks in the list.");
                         System.out.println("____________________________________________________________");
                         break;
 
