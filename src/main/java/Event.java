@@ -10,6 +10,14 @@ class Event extends Task {
         System.out.println(this);
     }
 
+    public String getEventFrom() {
+        return eventFrom;
+    }
+
+    public String getEventTo() {
+        return eventTo;
+    }
+
     @Override
     public String toString() {
         return "[E]" + getStatusIcon() + getDescription() + " (from: " + eventFrom + " to: " + eventTo + ")";

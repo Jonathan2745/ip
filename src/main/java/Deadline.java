@@ -8,6 +8,10 @@ class Deadline extends Task {
         System.out.println(this);
     }
 
+    public String getDeadlineBy() {
+        return deadlineBy;
+    }
+
     @Override
     public String toString() {
         return "[D]" + getStatusIcon() + getDescription() + " (by: " + deadlineBy + ")";
