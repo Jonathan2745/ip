@@ -1,4 +1,3 @@
-import java.util.Scanner;
 
 class UI {
 
@@ -19,6 +18,24 @@ class UI {
     public void showList() {
         System.out.println("____________________________________________________________");
         System.out.println(" Here are the tasks in your list:");
+    }
+
+    public void deletedTask(int deleteIndex){
+        System.out.println("____________________________________________________________");
+        System.out.println("Okay, deleted Task " + (deleteIndex + 1));
+        System.out.println("____________________________________________________________");
+    }
+
+    public void markedTask(int markIndex){
+        System.out.println("____________________________________________________________");
+        System.out.println("Okay, marked Task " + (markIndex + 1));
+        System.out.println("____________________________________________________________");
+    }
+
+    public void unmarkedTask(int unmarkIndex){
+        System.out.println("____________________________________________________________");
+        System.out.println("Okay, unmarked Task " + (unmarkIndex + 1));
+        System.out.println("____________________________________________________________");
     }
 
     public void printLine() {

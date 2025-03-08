@@ -7,9 +7,9 @@ public class Task {
         this.isDone = false;
     }
 
-    public static Task fromString(String line) {
-        String[] parts = line.split("\n");
-        return new Task(parts[0]);
+    public Task(boolean isDone, String description) {
+        this.isDone = isDone;
+        this.description = description;
     }
 
     public void markAsDone() {
@@ -23,6 +23,11 @@ public class Task {
     public String getStatusIcon() {
         return (isDone ? "[X] " : "[ ] ");
     }
+
+    public String getDoneStatus(){
+        return (isDone ? "done" : "not done");
+    }
+
 
     public String getDescription() {
         return description;

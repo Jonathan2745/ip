@@ -1,9 +1,15 @@
-class Event extends Task {
-    private final String eventFrom;
-    private final String eventTo;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
-    public Event(String description, String eventFrom, String eventTo) {
+class Event extends Task {
+    private final LocalDate eventFrom;
+    private final LocalDate eventTo;
+    private final DateTimeFormatter dateTimeOutputFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+
+    public Event(boolean isDone, String description, LocalDate eventFrom, LocalDate eventTo) {
         super(description);
+        this.isDone = isDone;
         this.eventFrom = eventFrom;
         this.eventTo = eventTo;
         System.out.println("I have added this event: ");
@@ -11,11 +17,11 @@ class Event extends Task {
     }
 
     public String getEventFrom() {
-        return eventFrom;
+        return eventFrom.format(dateTimeOutputFormat);
     }
 
     public String getEventTo() {
-        return eventTo;
+        return eventTo.format(dateTimeOutputFormat);
     }
 
     @Override

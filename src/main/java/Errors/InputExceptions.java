@@ -40,5 +40,10 @@ public class InputExceptions extends Exception {
         }
     }
 
+    public static class InvalidDateFormatException extends InputExceptions {
+        public InvalidDateFormatException() {
+            super("Invalid date format. Please use dd-MM-yyyy.");
+        }
+    }
 
 }

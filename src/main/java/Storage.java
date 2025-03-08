@@ -1,6 +1,10 @@
 import java.io.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
+
 
 class Storage {
     private final String filePath;
@@ -43,15 +47,18 @@ class Storage {
     public String formatTaskToStorage(Task task) {
         String taskInStorageFormat;
 
+
         if (task instanceof ToDo) {
-            taskInStorageFormat = "todo|" + task.getDescription();
+            taskInStorageFormat = "todo|" + task.getDoneStatus() + "|" + task.getDescription();
         }
         else if (task instanceof Deadline deadlineTask) {
-            taskInStorageFormat = "deadline|" + deadlineTask.getDescription() + "|" + deadlineTask.getDeadlineBy();
+            taskInStorageFormat = "deadline|" + deadlineTask.getDoneStatus() + "|" + deadlineTask.getDescription() +
+                    "|" + deadlineTask.getDeadlineBy();
         }
         else if (task instanceof Event eventTask) {
 
-            taskInStorageFormat = "event|" + eventTask.getDescription() + "|" + eventTask.getEventFrom() + "|" + eventTask.getEventTo();
+            taskInStorageFormat = "event|" + eventTask.getDoneStatus() + "|" + eventTask.getDescription() +
+                    "|" + eventTask.getEventFrom() + "|" + eventTask.getEventTo();
         } else {
             throw new IllegalArgumentException("Unknown task type: " + task.getClass().getSimpleName());
         }
@@ -63,33 +70,45 @@ class Storage {
 
     public Task formatTaskFromStorage(String savedTask) {
         String[] parts = savedTask.split("\\|"); // Split by "|"
+        DateTimeFormatter dateTimeLoadFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
         // Ensure the task format is valid
-        if (parts.length < 2) {
+        if (parts.length < 3) {
             throw new IllegalArgumentException("Invalid task format: " + savedTask);
         }
 
         String taskType = parts[0];
-        String description = parts[1];
+        String taskDoneFormat = parts[1];
+        String description = parts[2];
+
+        boolean taskDone;
+
+        if (Objects.equals(taskDoneFormat, "done")){
+            taskDone = true;
+        } else if (Objects.equals(taskDoneFormat, "not done")){
+            taskDone = false;
+        } else {
+            throw new IllegalArgumentException("Data corrupted" + savedTask);
+        }
 
         switch (taskType) {
             case "todo":
-                assert parts.length == 2 : "Todo task should have 2 arguments";
-                return new ToDo(description);
+                assert parts.length == 3 : "Todo task should have 2 arguments";
+                return new ToDo(taskDone, description);
 
             case "deadline":
-                assert parts.length == 3 : "Deadline task should have 3 arguments";
-                if (parts.length != 3) {
+                assert parts.length == 4 : "Deadline task should have 3 arguments";
+                if (parts.length != 4) {
                     throw new IllegalArgumentException("Invalid deadline format: " + savedTask);
                 }
-                return new Deadline(description, parts[2]);
+                return new Deadline(taskDone, description, LocalDate.parse(parts[3], dateTimeLoadFormat));
 
             case "event":
-                assert parts.length == 4 : "Event task should have 4 arguments";
-                if (parts.length != 4) {
+                assert parts.length == 5 : "Event task should have 4 arguments";
+                if (parts.length != 5) {
                     throw new IllegalArgumentException("Invalid event format: " + savedTask);
                 }
-                return new Event(description, parts[2], parts[3]);
+                return new Event(taskDone, description, LocalDate.parse(parts[3], dateTimeLoadFormat), LocalDate.parse(parts[4],dateTimeLoadFormat));
 
             default:
                 throw new IllegalArgumentException("Unknown task type: " + taskType);
