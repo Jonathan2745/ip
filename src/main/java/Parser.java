@@ -1,6 +1,13 @@
 import Errors.InputExceptions;
 
- class Parser {
+import java.util.Scanner;
+
+class Parser {
+    private static final Scanner scanner = new Scanner(System.in);
+    public static String getUserInput() {
+        return scanner.nextLine().trim();
+    }
+
     public static void parseCommand(String input, TaskList taskList, Storage storage, UI ui) throws InputExceptions {
         String[] inputParts = input.split(" ", 2);
         String command = inputParts[0].toLowerCase();
@@ -9,7 +16,7 @@ import Errors.InputExceptions;
         switch (command) {
             case "bye":
                 ui.showGoodbye();
-                storage.saveTasks(taskList.getTasks());
+                storage.saveTasks(taskList.getListOfTasks());
                 System.exit(0);
                 break;
             case "list":
@@ -58,4 +65,6 @@ import Errors.InputExceptions;
                 throw new InputExceptions.InvalidCommandException();
         }
     }
-}
+
+
+ }

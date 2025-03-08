@@ -47,11 +47,9 @@ class Storage {
             taskInStorageFormat = "todo|" + task.getDescription();
         }
         else if (task instanceof Deadline deadlineTask) {
-            // Cast task to Deadline
             taskInStorageFormat = "deadline|" + deadlineTask.getDescription() + "|" + deadlineTask.getDeadlineBy();
         }
         else if (task instanceof Event eventTask) {
-            // Cast task to Event
             taskInStorageFormat = "event|" + eventTask.getDescription() + "|" + eventTask.getEventFrom() + "|" + eventTask.getEventTo();
         }
         else {
