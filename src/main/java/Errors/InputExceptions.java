@@ -1,13 +1,30 @@
 package Errors;
 
+import java.util.Objects;
+
 public class InputExceptions extends Exception {
     public InputExceptions(String message) {
         super(message);
     }
 
-    public static class MissingArgumentException extends InputExceptions {
-        public MissingArgumentException(String command) {
-            super(command + " must have arguments.");
+    public static class MissingTodoArgumentException extends InputExceptions {
+        public MissingTodoArgumentException(String command) {
+            super(command + " must have arguments." + "\n" +
+                    "Please use: \"todo\"  \"task\" instead");
+        }
+    }
+
+    public static class MissingDeadlineArgumentException extends InputExceptions {
+        public MissingDeadlineArgumentException(String command) {
+            super(command + " must have arguments." + "\n" +
+                    "Please use: \"deadline\" \"task\" /by \"deadline\" indead");
+        }
+    }
+
+    public static class MissingEventArgumentException extends InputExceptions {
+        public MissingEventArgumentException(String command) {
+            super(command + " must have arguments." + "\n" +
+                    "Please use: \"event\" \"task\" /from \"eventfrom\" /to \"eventto\" instead");
         }
     }
 
@@ -23,9 +40,5 @@ public class InputExceptions extends Exception {
         }
     }
 
-    public static class NumberFormatException extends InputExceptions {
-        public NumberFormatException() {
-            super("Error: Please enter a valid number.");
-        }
-    }
+
 }
