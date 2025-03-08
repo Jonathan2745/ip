@@ -19,7 +19,7 @@ class Bob {
 //    static final ArrayList<Task> tasks = new ArrayList<>();
 
 
-    public void start() throws InputExceptions {
+    public void start() {
         ui.showWelcome();
         while (true) {
             String userInput = ui.getUserInput();
