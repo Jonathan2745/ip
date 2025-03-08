@@ -12,7 +12,7 @@ class Bob {
     private final TaskList taskList = new TaskList(storage.loadTasks());
 
 
-    public void start() throws InputExceptions {
+    public void start() {
         ui.showWelcome();
 
         while (true) {

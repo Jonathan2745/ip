@@ -50,11 +50,14 @@ class Storage {
             taskInStorageFormat = "deadline|" + deadlineTask.getDescription() + "|" + deadlineTask.getDeadlineBy();
         }
         else if (task instanceof Event eventTask) {
+
             taskInStorageFormat = "event|" + eventTask.getDescription() + "|" + eventTask.getEventFrom() + "|" + eventTask.getEventTo();
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("Unknown task type: " + task.getClass().getSimpleName());
         }
+
+        assert taskInStorageFormat != null : "taskInStorageFormat should not be null";
+
         return taskInStorageFormat;
     }
 
@@ -71,16 +74,19 @@ class Storage {
 
         switch (taskType) {
             case "todo":
+                assert parts.length == 2 : "Todo task should have 2 arguments";
                 return new ToDo(description);
 
             case "deadline":
-                if (parts.length < 3) {
+                assert parts.length == 3 : "Deadline task should have 3 arguments";
+                if (parts.length != 3) {
                     throw new IllegalArgumentException("Invalid deadline format: " + savedTask);
                 }
                 return new Deadline(description, parts[2]);
 
             case "event":
-                if (parts.length < 4) {
+                assert parts.length == 4 : "Event task should have 4 arguments";
+                if (parts.length != 4) {
                     throw new IllegalArgumentException("Invalid event format: " + savedTask);
                 }
                 return new Event(description, parts[2], parts[3]);
