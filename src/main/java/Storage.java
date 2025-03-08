@@ -45,11 +45,12 @@ class Storage {
 
         if (task instanceof ToDo) {
             taskInStorageFormat = "todo|" + task.getDescription();
-        } else if (task instanceof Deadline deadlineTask) {
-            // Assert Task as Deadline
+        }
+        else if (task instanceof Deadline deadlineTask) {
             taskInStorageFormat = "deadline|" + deadlineTask.getDescription() + "|" + deadlineTask.getDeadlineBy();
-        } else if (task instanceof Event eventTask) {
-            // Cast task to Event
+        }
+        else if (task instanceof Event eventTask) {
+
             taskInStorageFormat = "event|" + eventTask.getDescription() + "|" + eventTask.getEventFrom() + "|" + eventTask.getEventTo();
         } else {
             throw new IllegalArgumentException("Unknown task type: " + task.getClass().getSimpleName());
