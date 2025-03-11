@@ -38,6 +38,21 @@ class UI {
         System.out.println("____________________________________________________________");
     }
 
+    public void printFindingTask(){
+        System.out.println("____________________________________________________________");
+        System.out.println("Here are the matching tasks in your list:");
+    }
+
+    public void printNoTaskFound(){
+        printLine();
+        System.out.println("No task with matching keyword found");
+    }
+
+    public void printFoundTask(int position, Task task){
+        printLine();
+        System.out.println( position + "." + " " + task.toString() );
+    }
+
     public void printLine() {
         System.out.println("____________________________________________________________");
     }

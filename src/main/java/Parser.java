@@ -96,6 +96,30 @@ class Parser {
                 taskList.getTask(unmarkIndex).markAsNotDone();
                 ui.unmarkedTask(unmarkIndex);
                 break;
+
+            case "find":
+                if (arguments.isEmpty()) {
+                    throw new InputExceptions.MissingFindArgumentException("find");
+                }
+
+                ui.printFindingTask();
+
+                int taskFound = 0;
+                for (int i = 0; i < taskList.size(); i++) {
+                    Task task = taskList.getTask(i);
+                    if (task.getDescription().toLowerCase().contains(arguments)) {
+                        taskFound++;
+                        ui.printFoundTask(taskFound, task);
+                    }
+                }
+
+                if (taskFound == 0) {
+                    ui.printNoTaskFound();
+                }
+
+                ui.printLine();
+
+                break;
             default:
                 throw new InputExceptions.InvalidCommandException();
         }
