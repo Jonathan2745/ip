@@ -1,3 +1,6 @@
+import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
+
 public class ASCII_Art {
     public static String art = """
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣧⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
@@ -30,7 +33,12 @@ public class ASCII_Art {
 
 
     public static void printArt() {
-            System.out.println(art);
+        try {
+            PrintStream out = new PrintStream(System.out, true, StandardCharsets.UTF_8);
+            out.println(art);
+        } catch (Exception e) {
+            System.err.println("Error printing ASCII Art: " + e.getMessage());
+        }
     }
 
 

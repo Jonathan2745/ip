@@ -44,7 +44,6 @@ class Storage {
                 System.err.println("Error creating new file: " + e.getMessage());
             }
             return tasks;
-            return tasks;
         }
         Scanner scanner = new Scanner(file);
         while (scanner.hasNextLine()) {
