@@ -13,24 +13,29 @@ BobChungus is a command-line based application intended as a Task Management Sys
 <div style="border: 1px solid #2196F3; background-color: #BBDEFB; padding: 10px; border-radius: 5px;">
 
 <strong> Notes about the Command Format </strong>
+  <br>
 
 - Words in UPPER_CASE are the parameters to be supplied by the user.
   e.g. in TASK_DESCRIPTION is a parameter which can be replaced with the description of the task to be added
-  </br>
+
+<br>
+<br>
 
 
 - Parameters <strong> must </strong> be in the specified order.
   e.g. if the command specifies TASK_DESCRIPTION followed by TASK_DATE,
   TASK_DATE followed by TASK_DESCRIPTION is <strong> NOT </strong> acceptable and will cause issues.
-  </br>
-
+  <br>
+  <br>
 
 - Extraneous parameters for commands that do not take in parameters (such as list and bye) will cause errors.
   e.g. if the command specifies bye 123, it will be create an error.
-  </br>
-
+  <br>
+  <br>
 
 - If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
+  <br>
+
 
 </div>
 
