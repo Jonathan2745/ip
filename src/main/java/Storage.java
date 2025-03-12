@@ -31,13 +31,19 @@ class Storage {
     public ArrayList<Task> loadTasks() throws FileNotFoundException {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
+        File parentDir = file.getParentFile();
+
         if (!file.exists()) {
             try {
+                if (parentDir != null && !parentDir.exists()) {
+                    parentDir.mkdirs();
+                }
                 file.createNewFile();
-                System.out.println("File not found. A new file has been created.");
+                System.out.println("File not found. A new file 'userData.txt' has been created in 'data' folder.");
             } catch (IOException e) {
                 System.err.println("Error creating new file: " + e.getMessage());
             }
+            return tasks;
             return tasks;
         }
         Scanner scanner = new Scanner(file);
