@@ -14,13 +14,12 @@ BobChungus is a command-line based application intended as a Task Management Sys
 
 <strong> Notes about the Command Format </strong>
   <br>
+  <br>
 
 - Words in UPPER_CASE are the parameters to be supplied by the user.
   e.g. in TASK_DESCRIPTION is a parameter which can be replaced with the description of the task to be added
-
-<br>
-<br>
-
+  <br>
+  <br>
 
 - Parameters <strong> must </strong> be in the specified order.
   e.g. if the command specifies TASK_DESCRIPTION followed by TASK_DATE,
