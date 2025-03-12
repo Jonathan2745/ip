@@ -32,7 +32,12 @@ class Storage {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
         if (!file.exists()) {
-            System.out.println("File does not exist, starting with an empty list.");
+            try {
+                file.createNewFile();
+                System.out.println("File not found. A new file has been created.");
+            } catch (IOException e) {
+                System.err.println("Error creating new file: " + e.getMessage());
+            }
             return tasks;
         }
         Scanner scanner = new Scanner(file);
