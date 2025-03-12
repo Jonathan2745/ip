@@ -4,14 +4,34 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+
+/**
+ * Parses user commands and executes corresponding actions.
+ */
 class Parser {
+
+    /** Scanner for reading user input. */
     private static final Scanner scanner = new Scanner(System.in);
     private static final DateTimeFormatter dateTimeInputFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
+    /**
+     * Reads and returns user input from the console, trimming whitespace.
+     *
+     * @return The trimmed user input as a string.
+     */
     public static String getUserInput() {
         return scanner.nextLine().trim();
     }
 
+    /**
+     * Parses and executes the user command.
+     *
+     * @param input The user input string.
+     * @param taskList The list of tasks.
+     * @param storage The storage handler for saving tasks.
+     * @param ui The user interface handler for displaying messages.
+     * @throws InputExceptions If an invalid command or missing argument is encountered.
+     */
     public static void parseCommand(String input, TaskList taskList, Storage storage, UI ui) throws InputExceptions {
         String[] inputParts = input.split(" ", 2);
         String command = inputParts[0].toLowerCase();
@@ -49,7 +69,6 @@ class Parser {
                 if (parts.length < 2) {
                     throw new InputExceptions.MissingDeadlineArgumentException("deadline");
                 }
-
                 try {
                     LocalDate deadlineBy = LocalDate.parse(parts[1], dateTimeInputFormat);
                     taskList.addTask(new Deadline(false, parts[0], deadlineBy));
@@ -65,7 +84,6 @@ class Parser {
                     throw new InputExceptions.MissingEventArgumentException("event");
                 }
                 String[] timeParts = eventParts[1].split(" /to ", 2);
-
                 if (timeParts.length < 2) {
                     throw new InputExceptions.MissingEventArgumentException("event");
                 }
@@ -101,9 +119,7 @@ class Parser {
                 if (arguments.isEmpty()) {
                     throw new InputExceptions.MissingFindArgumentException("find");
                 }
-
                 ui.printFindingTask();
-
                 int taskFound = 0;
                 for (int i = 0; i < taskList.size(); i++) {
                     Task task = taskList.getTask(i);
@@ -118,8 +134,8 @@ class Parser {
                 }
 
                 ui.printLine();
-
                 break;
+
             default:
                 throw new InputExceptions.InvalidCommandException();
         }

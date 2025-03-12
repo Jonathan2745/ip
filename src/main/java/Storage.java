@@ -5,14 +5,29 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
-
+/**
+ * The Storage class handles loading and saving tasks to a file.
+ * It reads from and writes to a specified file path, ensuring tasks are
+ * persisted across program executions.
+ */
 class Storage {
     private final String filePath;
 
+    /**
+     * Constructs a Storage object with a specified file path.
+     *
+     * @param filePath The path to the file where tasks are stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the file into an ArrayList.
+     *
+     * @return An ArrayList of tasks loaded from storage.
+     * @throws FileNotFoundException If the file does not exist.
+     */
     public ArrayList<Task> loadTasks() throws FileNotFoundException {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
@@ -30,6 +45,12 @@ class Storage {
         return tasks;
     }
 
+
+    /**
+     * Saves tasks to the file in a structured format.
+     *
+     * @param tasks The list of tasks to be saved.
+     */
     public void saveTasks(ArrayList<Task> tasks) {
         try (FileWriter fileWriter = new FileWriter(filePath);
              PrintWriter writer = new PrintWriter(fileWriter)) {
@@ -44,9 +65,14 @@ class Storage {
         }
     }
 
+    /**
+     * Converts a Task object into a storage-friendly string format.
+     *
+     * @param task The task to be formatted.
+     * @return A string representation of the task for storage.
+     */
     public String formatTaskToStorage(Task task) {
         String taskInStorageFormat;
-
 
         if (task instanceof ToDo) {
             taskInStorageFormat = "todo|" + task.getDoneStatus() + "|" + task.getDescription();
@@ -68,6 +94,13 @@ class Storage {
         return taskInStorageFormat;
     }
 
+    /**
+     * Parses a task from its stored string format.
+     *
+     * @param savedTask The string representation of the task from storage.
+     * @return The reconstructed Task object.
+     * @throws IllegalArgumentException If the format is invalid or unknown.
+     */
     public Task formatTaskFromStorage(String savedTask) {
         String[] parts = savedTask.split("\\|"); // Split by "|"
         DateTimeFormatter dateTimeLoadFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
