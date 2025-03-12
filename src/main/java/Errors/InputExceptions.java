@@ -8,21 +8,21 @@ public class InputExceptions extends Exception {
     public static class MissingTodoArgumentException extends InputExceptions {
         public MissingTodoArgumentException(String command) {
             super(command + " must have arguments." + "\n" +
-                    "Please use: \"todo\"  \"task\" instead");
+                    "Please use: \"todo\"  \"TASK_DESCRIPTION\" instead");
         }
     }
 
     public static class MissingDeadlineArgumentException extends InputExceptions {
         public MissingDeadlineArgumentException(String command) {
             super(command + " must have arguments." + "\n" +
-                    "Please use: \"deadline\" \"task\" /by \"deadline\" instead");
+                    "Please use: \"deadline\" \"TASK_DESCRIPTION\" /by \"TASK_DEADLINE\" instead");
         }
     }
 
     public static class MissingEventArgumentException extends InputExceptions {
         public MissingEventArgumentException(String command) {
             super(command + " must have arguments." + "\n" +
-                    "Please use: \"event\" \"task\" /from \"eventfrom\" /to \"eventto\" instead");
+                    "Please use: \"event\" \"TASK_DESCRIPTION\" /from \"TASK_START_DATE\" /to \"TASK_END_DATE\" instead");
         }
     }
 
