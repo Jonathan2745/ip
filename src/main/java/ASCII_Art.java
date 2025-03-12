@@ -3,22 +3,21 @@ import java.nio.charset.StandardCharsets;
 
 public class ASCII_Art {
     public static String art = """
-      ____        _        _____ _                                \s
-     |  _ \\      | |      / ____| |                               \s
-     | |_) | ___ | |__   | |    | |__  _   _ _ __   __ _ _   _ ___\s
+      ____        _        _____ _                                
+     |  _ \\      | |      / ____| |                               
+     | |_) | ___ | |__   | |    | |__  _   _ _ __   __ _ _   _ ___
      |  _ < / _ \\| '_ \\  | |    | '_ \\| | | | '_ \\ / _` | | | / __|
      | |_) | (_) | |_) | | |____| | | | |_| | | | | (_| | |_| \\__ \\
      |____/ \\___/|_.__/   \\_____|_| |_|\\__,_|_| |_|\\__, |\\__,_|___/
-                                                    __/ |         \s
-                                                   |___/          \s⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-    """;
+                                                    __/ |         
+                                                   |___/""";
 
 
 
 
     public static void printArt() {
         try {
-            System.out.write(art.getBytes(StandardCharsets.UTF_8));
+            System.out.println(art);
         } catch (Exception e) {
             System.err.println("Error printing ASCII Art: " + e.getMessage());
         }
