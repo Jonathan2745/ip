@@ -142,17 +142,17 @@ Furthermore, certain edits can cause BobChungus to behave in unexpected ways (e.
 
 ## Command Summary
 
-| Command    | Description                               | Arguments                             | Format                                             |
-| ---------- | ----------------------------------------- | ------------------------------------- | -------------------------------------------------- |
-| `bye`      | Exits the program                         | None                                  | `bye`                                              |
-| `list`     | Lists all tasks                           | None                                  | `list`                                             |
-| `todo`     | Adds a to-do task                         | Task description                      | `todo Buy groceries`                               |
-| `deadline` | Adds a deadline task                      | Task description /by date             | `deadline Submit report /by 18-03-2025`            |
-| `event`    | Adds an event task                        | Event description /from date /to date | `event Conference /from 20-03-2025 /to 22-03-2025` |
-| `delete`   | Deletes a task by index                   | Task index                            | `delete 2`                                         |
-| `mark`     | Marks a task as completed                 | Task index                            | `mark 3`                                           |
-| `unmark`   | Marks a task as not completed             | Task index                            | `unmark 1`                                         |
-| `find`     | Finds tasks by keyword in the description | Search keyword                        | `find meeting`                                     |
+| Command    | Description                               | Arguments                                   | Format                                             |
+| ---------- | ----------------------------------------- |---------------------------------------------| -------------------------------------------------- |
+| `bye`      | Exits the program                         | None                                        | `bye`                                              |
+| `list`     | Lists all tasks                           | None                                        | `list`                                             |
+| `todo`     | Adds a to-do task                         | TASK_DESCRIPTION                            | `todo Buy groceries`                               |
+| `deadline` | Adds a deadline task                      | TASK_DESCRIPTION /by DD-MM-YYYY             | `deadline Submit report /by 18-03-2025`            |
+| `event`    | Adds an event task                        | TASK_DESCRIPTION /from DD-MM-YYYY /to DD-MM-YYYY | `event Conference /from 20-03-2025 /to 22-03-2025` |
+| `delete`   | Deletes a task by index                   | TASK_INDEX (1-indexed)                      | `delete 2`                                         |
+| `mark`     | Marks a task as completed                 | TASK_INDEX (1-indexed)                      | `mark 3`                                           |
+| `unmark`   | Marks a task as not completed             | TASK_INDEX (1-indexed)                      | `unmark 1`                                         |
+| `find`     | Finds tasks by keyword in the description | SEARCH_KEYWORD                              | `find meeting`                                     |
 
 ---
 
@@ -160,7 +160,7 @@ Furthermore, certain edits can cause BobChungus to behave in unexpected ways (e.
 
 ### 1. **What happens if I enter an invalid command?**
 
-- If you enter a command that is not recognized, the program will throw an exception and display an error message indicating that the command is invalid.
+- If you enter a command that is not recognized, the program will throw an exception and display an error message indicating that the command is invalid. You may then follow the instructions in the error code for the correct formatting of inputs.
 
 ### 2. **What if I forget to include the arguments for a command like `todo` or `deadline`?**
 
